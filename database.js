@@ -22,6 +22,18 @@ const query = function(sql, variables, callback){
   })
 }
 
+const createUser = function( username, email, password, callback ){
+  query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *", [username, email, password], callback)
+}
+
+const getUserById = function( userId, callback ) {
+  query("SELECT * FROM users WHERE id=$1", [userId], callback)
+}
+
+const getUserByEmail = function( email, callback ) {
+  query("SELECT * FROM users WHERE email=$1", [email], callback)
+}
+
 const getAlbums = function(callback) {
   query("SELECT * FROM albums", [], callback)
 }
@@ -32,5 +44,8 @@ const getAlbumsByID = function(albumID, callback) {
 
 module.exports = {
   getAlbums,
-  getAlbumsByID
+  getAlbumsByID,
+  createUser,
+  getUserById,
+  getUserByEmail
 }
