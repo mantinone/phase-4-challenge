@@ -20,7 +20,15 @@ app.get('/', (request, response) => {
       if (error) {
         response.status(500).render('error', { error: error, currentUser: request.cookies.user })
       } else {
-        response.render('index', { albums: albums, currentUser: cookies.user })
+        const theAlbums = albums
+        database.getRecentReviews( 3, ( error, reviews) => {
+          if (error) {
+            response.status(500).render('error', { error: error, currentUser: request.cookies.user })
+          } else {
+            reviews = formatDates(reviews)
+            response.render('index', { albums: albums, reviews: reviews, currentUser: cookies.user })
+          }
+        })
       }
     })
   } else {
@@ -76,13 +84,20 @@ app.get('/logout', (request, response) => {
   response.clearCookie('user').redirect('/')
 })
 
-app.get('/users/:userId', (request, response) => {
-  const {userId} = request.params
-
-  database.getUserById( userId, (error, users) => {
+app.get('/users/:userID', (request, response) => {
+  const {userID} = request.params
+  database.getUserByID( userID, (error, users) => {
     const user = users[0]
     user.joined = moment( user.created ).format(' dddd, MMMM Do, YYYY')
-    response.render('profile', {user, currentUser: request.cookies.user})
+    database.getReviewsByUser( userID, ( error, reviews) => {
+      if (error) {
+        response.status(500).render('error', { error: error, currentUser: request.cookies.user })
+      } else {
+        reviews = formatDates(reviews)
+        console.log('ASFSDAFSADFSAD', reviews);
+        response.render('profile', { user: user, reviews: reviews, currentUser: request.cookies.user })
+      }
+    })
   })
 })
 
@@ -104,7 +119,14 @@ app.get('/albums/:albumID', (request, response) => {
       response.status(500).render('error', { error: error, currentUser: request.cookies.user })
     } else {
       const album = albums[0]
-      response.render('album', { album: album, currentUser: request.cookies.user })
+      database.getReviewsByAlbum( albumID, ( error, reviews) => {
+        if (error) {
+          response.status(500).render('error', { error: error, currentUser: request.cookies.user })
+        } else {
+          reviews = formatDates(reviews)
+          response.render('album', { album: album, reviews: reviews, currentUser: request.cookies.user })
+        }
+      })
     }
   })
 })
@@ -117,5 +139,12 @@ const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}...`)
 })
+
+const formatDates = function ( list ) {
+  return list.map( (item) => {
+    item.date = moment( item.created ).format(' dddd, MMMM Do, YYYY')
+    return item
+  })
+}
 
 

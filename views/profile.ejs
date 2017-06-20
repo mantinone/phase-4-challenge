@@ -17,6 +17,16 @@
   <p>Date Joined: <%= user.joined %> </p>
 
   <h2> Reviews </h2>
-  To do later, add reviews
+
+  <div class="reviews-list">
+    <% reviews.forEach(function(review) { %>
+      <div>
+        <h5><a href="/albums/<%= review.album_id %>"><%= review.title %></a> <%= review.date %></h5>
+
+        <div><%= review.review_text %></div>
+      </div>
+    <% })%>
+  </div>
+
 </body>
 </html>

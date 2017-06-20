@@ -15,7 +15,16 @@
 
   <h2>Reviews</h2>
 
-  <!-- TODO: implement album reviews -->
+  <div class="reviews-list">
+    <% reviews.forEach(function(review) { %>
+      <div>
+        <h5><a href="/albums/<%= review.album_id %>"><%= review.title %></a> <%= review.date %></h5>
+
+        <div><%= review.review_text %></div>
+        by <a href="/users/<%= review.user_id %>"> <%= review.username %> </a>
+      </div>
+    <% })%>
+  </div>
 
 </body>
 </html>
