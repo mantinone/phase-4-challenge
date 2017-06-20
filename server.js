@@ -40,7 +40,10 @@ app.post('/signup', (request, response) => {
 
   database.createUser( username, email, password, (error, users) => {
     user = users[0]
-    response.redirect(`users/${user.id}`)
+    delete user.password
+    response.cookie( 'user',
+      user ).
+      redirect(`users/${user.id}`)
   })
 })
 
@@ -48,16 +51,12 @@ app.get('/login', (request, response) => {
   response.render('login', {currentUser: request.cookies.user})
 })
 
-app.get('/logout', (request, response) => {
-  response.clearCookie('user').redirect('/')
-})
-
 app.post('/login', (request, response) => {
   let {email, password} = request.body
 
   database.getUserByEmail( email, ( error, users ) => {
     const user = users[0]
-//This is ugly and I hate it.  How can I refactor this?
+//This nexting is ugly and I hate it.  How can I refactor this?
     if( user ){
       if( bcrypt.compareSync( password, user.password)) {
         delete user.password
@@ -73,12 +72,16 @@ app.post('/login', (request, response) => {
   })
 })
 
+app.get('/logout', (request, response) => {
+  response.clearCookie('user').redirect('/')
+})
+
 app.get('/users/:userId', (request, response) => {
   const {userId} = request.params
 
   database.getUserById( userId, (error, users) => {
     const user = users[0]
-    user.joined = moment( user.created ).format(' dddd, MMMM Mo, YYYY')
+    user.joined = moment( user.created ).format(' dddd, MMMM Do, YYYY')
     response.render('profile', {user, currentUser: request.cookies.user})
   })
 })
