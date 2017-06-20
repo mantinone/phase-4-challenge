@@ -20,6 +20,7 @@ CREATE TABLE reviews (
   id SERIAL,
   album_id INTEGER,
   user_id INTEGER,
+  review_text TEXT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
