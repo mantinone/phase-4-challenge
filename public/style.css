@@ -13,6 +13,7 @@ nav {
 
 nav > a {
   color: #ccf;
+  padding-right: 6px;
 }
 
 .button {

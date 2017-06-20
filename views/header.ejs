@@ -1,4 +1,13 @@
 <nav class="navigation" role="navigation">
-  I am a header
-  <a  href="/logout"> Log Out </a>
+  Welcome to Vinyl
+  <% if (currentUser) {%>
+    Currently logged in as <%= currentUser.name %>
+    <a href='/users/<%= currentUser.id %>'> Profile </a>
+    <a  href="/logout"> Sign Out </a>
+  <% } else { %>
+    <a class= href="/login"> Sign In </button>
+    <a class= href="/signup"> Sign Up </button>
+  <% } %>
+
+
 </nav>
