@@ -9,18 +9,12 @@
   <header>
     <% include ./header %>
   </header>
+
   <h1>Vinyl</h1>
 
-  <h2>Records</h2>
+  <h2>User Profile</h2>
 
-  <div class="album-list">
-    <% albums.forEach(function(album) { %>
-      <div>
-        <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-        <span><%= album.artist %></span>
-      </div>
-    <% }) %>
-  </div>
+  This is a bunch of stuff for the currently logged in user.
 
 </body>
 </html>

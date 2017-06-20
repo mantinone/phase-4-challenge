@@ -14,11 +14,32 @@ app.get('/', (request, response) => {
     if (error) {
       response.status(500).render('error', { error: error })
     } else {
-      response.render('index', { albums: albums })
+      response.render('splash')
+      //response.render('index', { albums: albums })
     }
   })
 })
 
+//TODO: Separate these into their own files.
+app.get('/signup', (request, response) => {
+  response.render('signup')
+})
+
+app.post('/signup', (request, response) => {
+  response.render('login')
+})
+
+app.get('/login', (request, response) => {
+  response.render('login')
+})
+
+app.post('/login', (request, response) => {
+  response.render('login')
+})
+
+
+
+//TODO: Separate into own route files
 app.get('/albums/:albumID', (request, response) => {
   const albumID = request.params.albumID
 
