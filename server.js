@@ -18,20 +18,20 @@ app.get('/', (request, response) => {
   if (cookies.user ){
     database.getAlbums((error, albums) => {
       if (error) {
-        response.status(500).render('error', { error: error })
+        response.status(500).render('error', { error: error, currentUser: request.cookies.user })
       } else {
-        response.render('index', { albums: albums })
+        response.render('index', { albums: albums, currentUser: cookies.user })
       }
     })
   } else {
-    response.render('splash')
+    response.render('splash', {currentUser: request.cookies.user})
   }
 
 })
 
 //TODO: Separate these into their own files.
 app.get('/signup', (request, response) => {
-  response.render('signup')
+  response.render('signup', {currentUser: request.cookies.user})
 })
 
 app.post('/signup', (request, response) => {
@@ -45,7 +45,7 @@ app.post('/signup', (request, response) => {
 })
 
 app.get('/login', (request, response) => {
-  response.render('login')
+  response.render('login', {currentUser: request.cookies.user})
 })
 
 app.get('/logout', (request, response) => {
@@ -79,7 +79,7 @@ app.get('/users/:userId', (request, response) => {
   database.getUserById( userId, (error, users) => {
     const user = users[0]
     user.joined = moment( user.created ).format(' dddd, MMMM Mo, YYYY')
-    response.render('profile', {user})
+    response.render('profile', {user, currentUser: request.cookies.user})
   })
 })
 
@@ -98,16 +98,16 @@ app.get('/albums/:albumID', (request, response) => {
 
   database.getAlbumsByID(albumID, (error, albums) => {
     if (error) {
-      response.status(500).render('error', { error: error })
+      response.status(500).render('error', { error: error, currentUser: request.cookies.user })
     } else {
       const album = albums[0]
-      response.render('album', { album: album })
+      response.render('album', { album: album, currentUser: request.cookies.user })
     }
   })
 })
 
 app.use((request, response) => {
-  response.status(404).render('not_found')
+  response.status(404).render('not_found', {currentUser: request.cookies.user})
 })
 
 const port = process.env.PORT || 3000
