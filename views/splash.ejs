@@ -5,22 +5,18 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script type="text/javascript" src="/script.js"></script>
 </head>
+
 <body>
   <header>
     <% include ./header %>
   </header>
+
   <h1>Vinyl</h1>
 
-  <h2>Records</h2>
+  <h2>Weclome!</h2>
 
-  <div class="album-list">
-    <% albums.forEach(function(album) { %>
-      <div>
-        <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-        <span><%= album.artist %></span>
-      </div>
-    <% }) %>
-  </div>
+  <a class="button" href="/login"> Sign In </button>
+  <a class="button" href="/signup"> Sign Up </button>
 
 </body>
 </html>

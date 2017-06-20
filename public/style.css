@@ -1,5 +1,30 @@
 html, body {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 10px;
   width: 100vw;
+  font-family: sans-serif;
+}
+
+nav {
+  background-color: black;
+  color: white;
+  padding: 4px 20px;
+}
+
+nav > a {
+  color: #ccf;
+  padding-right: 6px;
+}
+
+.button {
+  border: solid 2px #777;
+  border-radius: 6px;
+  text-decoration: none;
+  padding: 3px 6px;
+  margin: 0px 5px;
+  color: #777;
+}
+
+.button:hover {
+  background-color: #dcd;
 }
