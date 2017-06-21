@@ -54,6 +54,9 @@ const getReviewsByUser = function(userID, callback){
   query("SELECT reviews.*, albums.title FROM reviews JOIN albums ON albums.id = reviews.album_id WHERE user_id = $1 ORDER BY created DESC", [userID], callback)
 }
 
+const createReview = function( albumID, userID, review_text, callback){
+  query("INSERT INTO reviews (album_id, user_id, review_text) VALUES ($1, $2, $3) RETURNING *", [albumID, userID, review_text], callback)
+}
 
 
 module.exports = {
@@ -64,5 +67,6 @@ module.exports = {
   getUserByEmail,
   getRecentReviews,
   getReviewsByAlbum,
-  getReviewsByUser
+  getReviewsByUser,
+  createReview
 }

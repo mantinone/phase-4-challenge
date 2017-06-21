@@ -131,6 +131,23 @@ app.get('/albums/:albumID', (request, response) => {
   })
 })
 
+app.get('/review/create/:albumID', (request, response) => {
+  const albumID = request.params.albumID
+  database.getAlbumsByID( albumID, (error, albums) => {
+    let album = albums[0]
+    response.render('reviewForm', { album: album, currentUser: request.cookies.user})
+  })
+})
+
+app.post('/review/create/:albumID', (request, response) => {
+  const albumID = request.params.albumID
+  const userID = request.cookies.user.id
+  const review_text = request.body.review_text
+  database.createReview( albumID, userID, review_text, (error, review) => {
+    response.redirect( `/albums/${albumID}`)
+  })
+})
+
 app.use((request, response) => {
   response.status(404).render('not_found', {currentUser: request.cookies.user})
 })
