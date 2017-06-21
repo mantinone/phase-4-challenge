@@ -14,8 +14,9 @@
   <em>by <%= album.artist %></em>
 
   <h2>Reviews</h2>
-  <a class="button" href="/review/create/<%= album.id %>"> Add Review </a>
-
+  <% if(currentUser) { %>
+    <a class="button" href="/review/create/<%= album.id %>"> Add Review </a>
+  <% } %>
   <div class="reviews-list">
     <% reviews.forEach(function(review) { %>
       <div>
