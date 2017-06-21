@@ -101,15 +101,6 @@ app.get('/users/:userID', (request, response) => {
   })
 })
 
-app.get('/cookieTest', (request, response) => {
-  if (!request.cookies ){
-    request.cookies.counter = 1
-  } else {
-    request.cookies.counter++
-  }
-  response.cookie( 'counter', request.cookies.counter ).redirect('/')
-})
-
 //TODO: Separate into own route files
 app.get('/albums/:albumID', (request, response) => {
   const albumID = request.params.albumID
@@ -145,6 +136,14 @@ app.post('/review/create/:albumID', (request, response) => {
   const review_text = request.body.review_text
   database.createReview( albumID, userID, review_text, (error, review) => {
     response.redirect( `/albums/${albumID}`)
+  })
+})
+
+app.post('/review/delete/:reviewID', (request, response) => {
+  const reviewID = request.params.reviewID
+  const userID = request.cookies.user.id
+  database.deleteReview( reviewID, (error, result) => {
+    response.redirect(`/users/${userID}`)
   })
 })
 

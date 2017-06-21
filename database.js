@@ -58,6 +58,10 @@ const createReview = function( albumID, userID, review_text, callback){
   query("INSERT INTO reviews (album_id, user_id, review_text) VALUES ($1, $2, $3) RETURNING *", [albumID, userID, review_text], callback)
 }
 
+const deleteReview = function( reviewID, callback ){
+  query("DELETE FROM reviews WHERE id = $1", [reviewID], callback)
+}
+
 
 module.exports = {
   getAlbums,
@@ -68,5 +72,6 @@ module.exports = {
   getRecentReviews,
   getReviewsByAlbum,
   getReviewsByUser,
-  createReview
+  createReview,
+  deleteReview
 }
