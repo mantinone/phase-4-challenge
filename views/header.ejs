@@ -1,14 +1,18 @@
 <nav class="navigation" role="navigation">
-  Welcome to Vinyl -
+  <div>
+    <b>Vinyl</b>
+  </div>
 
-  <% if (currentUser) {%>
-    Currently logged in as <%= currentUser.username %> -
-    <a href='/users/<%= currentUser.id %>'> Profile </a>
-    <a  href="/auth/logout"> Sign Out </a>
-  <% } else { %>
-    <a href="/auth/login"> Sign In </a>
-    <a href="/auth/signup"> Sign Up </a>
-  <% } %>
-  <a href='/'> Home </a>
+  <div>
+    <% if (currentUser) {%>
+      Currently logged in as <%= currentUser.username %> -
+      <a href='/users/<%= currentUser.id %>'> Profile </a>
+      <a  href="/auth/logout"> Sign Out </a>
+    <% } else { %>
+      <a href="/auth/login"> Sign In </a>
+      <a href="/auth/signup"> Sign Up </a>
+    <% } %>
+    <a href='/'> Home </a>
+  </div>
 
 </nav>

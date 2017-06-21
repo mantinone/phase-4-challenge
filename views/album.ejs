@@ -6,27 +6,28 @@
   <script type="text/javascript" src="/script.js"></script>
 </head>
 <body>
+
   <header>
     <% include ./header %>
   </header>
+  <div class="master">
+    <h1><%= album.title %></h1>
+    <em>by <%= album.artist %></em>
 
-  <h1><%= album.title %></h1>
-  <em>by <%= album.artist %></em>
+    <h2>Reviews</h2>
+    <% if(currentUser) { %>
+      <a class="button" href="/review/create/<%= album.id %>"> Add Review </a>
+    <% } %>
+    <div class="reviews-list">
+      <% reviews.forEach(function(review) { %>
+        <div>
+          <h5><a href="/albums/<%= review.album_id %>"><%= review.title %></a> <%= review.date %></h5>
 
-  <h2>Reviews</h2>
-  <% if(currentUser) { %>
-    <a class="button" href="/review/create/<%= album.id %>"> Add Review </a>
-  <% } %>
-  <div class="reviews-list">
-    <% reviews.forEach(function(review) { %>
-      <div>
-        <h5><a href="/albums/<%= review.album_id %>"><%= review.title %></a> <%= review.date %></h5>
-
-        <div><%= review.review_text %></div>
-        by <a href="/users/<%= review.user_id %>"> <%= review.username %> </a>
-      </div>
-    <% })%>
+          <div><%= review.review_text %></div>
+          by <a href="/users/<%= review.user_id %>"> <%= review.username %> </a>
+        </div>
+      <% })%>
+    </div>
   </div>
-
 </body>
 </html>

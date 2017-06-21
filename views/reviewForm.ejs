@@ -9,13 +9,14 @@
   <header>
     <% include ./header %>
   </header>
+  <div class="master">
 
-  <h1>New Review for <%= album.title %></h1>
-  <form method="post" action="/review/create/<%= album.id %>">
-    <textarea name="review_text" rows="20" cols="70"></textarea>
-    <input type="submit"></input>
-  </form>
+    <h1>New Review for <%= album.title %></h1>
+    <form method="post" action="/review/create/<%= album.id %>">
+      <textarea name="review_text" rows="20" cols="70"></textarea>
+      <input type="submit"></input>
+    </form>
 
-
+  </div>
 </body>
 </html>
