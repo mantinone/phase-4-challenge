@@ -67,7 +67,7 @@ Users CANNOT save invalid data to the database. You don't need to show error mes
 
 A user is authorized to perform certain actions on the site. You don't need to show error messages to the user for the following.
 
-- [ ] __30:__ Only logged in users can create/destroy reviews.
-- [ ] __30:__ Users may only delete their own reviews.
+- [x] __30:__ Only logged in users can create/destroy reviews.
+- [x] __30:__ Users may only delete their own reviews.
 
 ---
