@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const database = require('./database')
-const moment = require('moment')
 const app = express()
 
 const index = require('./routes/index')
