@@ -62,8 +62,8 @@ Ensure that no invalid data gets saved to the database with validation. Also mak
 
 Users CANNOT save invalid data to the database. You don't need to show error messages to the user for the following.
 
-- [ ] __30:__ Users CANNOT sign up with an email that is already in use.
-- [ ] __30:__ A review's content must not be empty.
+- [x] __30:__ Users CANNOT sign up with an email that is already in use.
+- [x] __30:__ A review's content must not be empty.
 
 A user is authorized to perform certain actions on the site. You don't need to show error messages to the user for the following.
 
