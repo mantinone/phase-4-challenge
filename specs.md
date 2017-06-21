@@ -50,7 +50,7 @@ Allow users to see albums and leave reviews on them.
 
 - [x] __20:__ See their reviews sorted by newest first.
 - [ ] __20:__ Click delete icon "trash can" on ANY individual review.
-- [ ] __20:__ See a pop-up that says: "Are you sure you want to delete this review?" when clicking trash can icon
+- [x] __20:__ See a pop-up that says: "Are you sure you want to delete this review?" when clicking trash can icon
 - [ ] __20:__ Have the review deleted when confirming the pop-up.
 
 ## Stage 3: Validations & Authorization
