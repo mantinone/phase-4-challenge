@@ -11,15 +11,36 @@
   </header>
   <h1>Vinyl</h1>
 
-  <h2>Records</h2>
+  <div class="flexrow">
+    <div class="mainColumn" >
+      <h2>Records</h2>
 
-  <div class="album-list">
-    <% albums.forEach(function(album) { %>
-      <div>
-        <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-        <span><%= album.artist %></span>
+      <div class="album-list">
+        <% albums.forEach(function(album) { %>
+          <div>
+            <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
+            <span><%= album.artist %></span>
+          </div>
+        <% }) %>
       </div>
-    <% }) %>
+    </div>
+
+    <div class="mainColumn" >
+      <h2>Recent Reviews</h2>
+
+      <div class="reviews-list">
+        <% reviews.forEach(function(review) { %>
+          <div>
+            <h5><a href="/albums/<%= review.album_id %>"><%= review.title %></a> <%= review.date %></h5>
+
+            <div><%= review.review_text %></div>
+            by <a href="/users/<%= review.user_id %>"> <%= review.username %> </a>
+          </div>
+        <% })%>
+      </div>
+    </div>
+
+
   </div>
 
 </body>

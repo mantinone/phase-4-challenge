@@ -16,6 +16,16 @@ nav > a {
   padding-right: 6px;
 }
 
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  //justify-content: center;
+}
+
+.mainColumn {
+  margin: 4px 20px;
+}
+
 .button {
   border: solid 2px #777;
   border-radius: 6px;
