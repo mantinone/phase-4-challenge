@@ -45,13 +45,18 @@ app.get('/signup', (request, response) => {
 app.post('/signup', (request, response) => {
   let {username, email, password } = request.body
   password = bcrypt.hashSync( password, 12 )
-
-  database.createUser( username, email, password, (error, users) => {
-    user = users[0]
-    delete user.password
-    response.cookie( 'user',
-      user ).
-      redirect(`users/${user.id}`)
+  database.getUserByEmail( email , (error, user) => {
+    if( user[0] ) {
+      response.status(406).render('error', { error: new Error("Email already in use"), currentUser: request.cookies.user })
+    } else {
+      database.createUser( username, email, password, (error, users) => {
+        user = users[0]
+        delete user.password
+        response.cookie( 'user',
+          user ).
+          redirect(`users/${user.id}`)
+      })
+    }
   })
 })
 
@@ -94,7 +99,6 @@ app.get('/users/:userID', (request, response) => {
         response.status(500).render('error', { error: error, currentUser: request.cookies.user })
       } else {
         reviews = formatDates(reviews)
-        console.log('ASFSDAFSADFSAD', reviews);
         response.render('profile', { user: user, reviews: reviews, currentUser: request.cookies.user })
       }
     })
@@ -134,9 +138,14 @@ app.post('/review/create/:albumID', (request, response) => {
   const albumID = request.params.albumID
   const userID = request.cookies.user.id
   const review_text = request.body.review_text
-  database.createReview( albumID, userID, review_text, (error, review) => {
-    response.redirect( `/albums/${albumID}`)
-  })
+
+  if( review_text.length === 0 ){
+    response.status(406).render('error', { error: new Error("Review must contain some text"), currentUser: request.cookies.user })
+  } else {
+    database.createReview( albumID, userID, review_text, (error, review) => {
+      response.redirect( `/albums/${albumID}`)
+    })
+  }
 })
 
 app.post('/review/delete/:reviewID', (request, response) => {
