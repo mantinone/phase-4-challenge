@@ -9,26 +9,28 @@
   <header>
     <% include ./header %>
   </header>
+  <div class="master">
 
-  <h1>Vinyl</h1>
+    <h1>Vinyl</h1>
 
-  <h2>Sing up for Vinyl</h2>
+    <h2>Sing up for Vinyl</h2>
 
-  <form method="post" action="/auth/signup">
-    <div>
-      <label> name </label>
-      <input type="text" name="username"> </input>
-    </div>
-    <div>
-      <label> email </label>
-      <input type="text" name="email"> </input>
-    </div>
-    <div>
-      <label> password </label>
-      <input type="password" name="password"> </input>
-    </div>
-    <input type="submit" value="Submit"/>
-  </form>
-
+    <form method="post" action="/auth/signup">
+      <div>
+        <label> name </label>
+        <input type="text" name="username"> </input>
+      </div>
+      <div>
+        <label> email </label>
+        <input type="text" name="email"> </input>
+      </div>
+      <div>
+        <label> password </label>
+        <input type="password" name="password"> </input>
+      </div>
+      <input type="submit" value="Submit"/>
+    </form>
+    
+  </div>
 </body>
 </html>

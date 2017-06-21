@@ -1,6 +1,6 @@
-html, body {
+body {
   margin: 0px;
-  padding: 10px;
+  padding: 0px;
   width: 100vw;
   font-family: sans-serif;
 }
@@ -9,17 +9,28 @@ nav {
   background-color: black;
   color: white;
   padding: 4px 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-nav > a {
+nav > div > a {
   color: #ccf;
   padding-right: 6px;
+}
+
+.master {
+  padding: 5px 15px;
+  text-align: center;
+}
+
+.headerImage{
+  width: 100%;
 }
 
 .flexrow {
   display: flex;
   flex-direction: row;
-  //justify-content: center;
+  justify-content: space-around;
 }
 
 .mainColumn {
