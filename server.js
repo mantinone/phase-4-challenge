@@ -1,10 +1,11 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const database = require('./database')
 const moment = require('moment')
 const app = express()
+
+const auth = require('./routes/auth')
 
 require('ejs')
 app.set('view engine', 'ejs');
@@ -38,56 +39,7 @@ app.get('/', (request, response) => {
 })
 
 //TODO: Separate these into their own files.
-app.get('/signup', (request, response) => {
-  response.render('signup', {currentUser: request.cookies.user})
-})
-
-app.post('/signup', (request, response) => {
-  let {username, email, password } = request.body
-  password = bcrypt.hashSync( password, 12 )
-  database.getUserByEmail( email , (error, user) => {
-    if( user[0] ) {
-      response.status(406).render('error', { error: new Error("Email already in use"), currentUser: request.cookies.user })
-    } else {
-      database.createUser( username, email, password, (error, users) => {
-        user = users[0]
-        delete user.password
-        response.cookie( 'user',
-          user ).
-          redirect(`users/${user.id}`)
-      })
-    }
-  })
-})
-
-app.get('/login', (request, response) => {
-  response.render('login', {currentUser: request.cookies.user})
-})
-
-app.post('/login', (request, response) => {
-  let {email, password} = request.body
-
-  database.getUserByEmail( email, ( error, users ) => {
-    const user = users[0]
-//This nexting is ugly and I hate it.  How can I refactor this?
-    if( user ){
-      if( bcrypt.compareSync( password, user.password)) {
-        delete user.password
-        response.cookie( 'user',
-          user ).
-          redirect(`users/${user.id}`)
-      } else {
-        response.send('Incorrect username or password')
-      }
-    } else {
-      response.send('Incorrect username or password')
-    }
-  })
-})
-
-app.get('/logout', (request, response) => {
-  response.clearCookie('user').redirect('/')
-})
+app.use('/auth', auth)
 
 app.get('/users/:userID', (request, response) => {
   const {userID} = request.params
